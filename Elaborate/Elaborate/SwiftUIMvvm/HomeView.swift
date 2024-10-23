@@ -16,10 +16,10 @@ struct HomeView: View{
     var body: some View{
         
         VStack {
-            Image(systemName: "globe")
+            Image(systemName: viewModel.counter > 10 ? "star" : "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text(viewModel.homeModel.welcomeText)
+            Text("Hello, World")
             
             HStack{
                 Button(action:{

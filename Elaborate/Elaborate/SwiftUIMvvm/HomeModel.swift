@@ -6,7 +6,6 @@
 //
 
 struct HomeModel{
-    var welcomeText: String = "Hello, World"
     
     var counter: Int = 0
     
