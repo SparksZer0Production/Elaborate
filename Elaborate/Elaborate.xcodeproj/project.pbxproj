@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -45,6 +45,10 @@
 		64761CB82CC87AD1006CD953 /* ElaborateUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElaborateUITests.swift; sourceTree = "<group>"; };
 		64761CBA2CC87AD1006CD953 /* ElaborateUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElaborateUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		721A0A522CC87DD000DDC08B /* SwiftUIMvvm */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SwiftUIMvvm; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		64761C972CC87ACF006CD953 /* Frameworks */ = {
@@ -94,6 +98,7 @@
 		64761C9C2CC87ACF006CD953 /* Elaborate */ = {
 			isa = PBXGroup;
 			children = (
+				721A0A522CC87DD000DDC08B /* SwiftUIMvvm */,
 				64761C9D2CC87ACF006CD953 /* ElaborateApp.swift */,
 				64761C9F2CC87ACF006CD953 /* ContentView.swift */,
 				64761CA12CC87AD1006CD953 /* Assets.xcassets */,
@@ -141,6 +146,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				721A0A522CC87DD000DDC08B /* SwiftUIMvvm */,
 			);
 			name = Elaborate;
 			productName = Elaborate;
@@ -422,7 +430,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Elaborate/Preview Content\"";
-				DEVELOPMENT_TEAM = U24KL52Y98;
+				DEVELOPMENT_TEAM = CDS9QAR29B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -451,7 +459,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Elaborate/Preview Content\"";
-				DEVELOPMENT_TEAM = U24KL52Y98;
+				DEVELOPMENT_TEAM = CDS9QAR29B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

@@ -11,7 +11,8 @@ import SwiftUI
 struct ElaborateApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
+            //ContentView()
         }
     }
 }
