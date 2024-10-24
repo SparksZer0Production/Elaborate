@@ -15,23 +15,62 @@ struct HomeView: View{
     
     var body: some View{
         
-        VStack {
-            Image(systemName: viewModel.counter > 10 ? "star" : "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, World")
+        ZStack{
             
-            HStack{
-                Button(action:{
-                    viewModel.buttonPressed()
-                }){
-                    Text("Inrease Counter")
-                }
-                Text("Counter:\(viewModel.counter)")
+            VStack {
+                AngularGradient(colors: [.red, .teal, .blue, .indigo, .red], center: .center)
             }
+            .edgesIgnoringSafeArea(.all)
+        
+            VStack {
+
+                
+                Text("Elaborate").font(.system(size: 75)).padding(.bottom).fontDesign(.serif)
+                Text("Log In").font(.largeTitle).foregroundStyle(Color.black)
+                
+                
+                //Username and Password Fields
+                HStack{
+                    Image(systemName: "person.fill")
+                    TextField("Input Text", text: $viewModel.inpUsername).border(Color.blue).padding(5)
+                }.textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                HStack{
+                    Image(systemName: "lock.fill")
+                    TextField("Input Text", text: $viewModel.inpPassword).border(Color.blue).padding(5)
+                }.textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                Button {
+                    print(viewModel.inpUsername)
+                    print(viewModel.inpPassword)
+                } label: {
+                    
+                    Image(systemName: "hand.tap").foregroundStyle(.white)
+                    Text("Submit").foregroundStyle(.white)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.blue)
+                .buttonBorderShape(.roundedRectangle)
+                .padding(10)
+                
+                
+                Button {
+                    //THIS NEEDS TO GO TO ACCOUNT CREATION
+                    print("Sending you to Account Creation Page")
+                } label: {
+                    Image(systemName: "pencil")
+                    Text("Create Account")
+                }
+
+            }
+            .padding(10)
+            .background(.white)
+            .border(.white, width: 5)
+            .cornerRadius(20)
             
+
+
         }
-        .padding()
     }
 }
 
