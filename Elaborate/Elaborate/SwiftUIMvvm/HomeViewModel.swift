@@ -13,6 +13,9 @@ class HomeViewModel: ObservableObject {
     @Published var counter: Int = 0
     @Published var inpUsername: String = ""
     @Published var inpPassword: String = ""
+    @Published var sheetVis: Bool = false
+    @Published var createUser: String = ""
+    @Published var createPass: String = ""
     
     func buttonPressed() {
         counter += 1
