@@ -12,6 +12,7 @@ import SwiftUI
 struct HomeView: View{
     
     @StateObject var viewModel = HomeViewModel()
+
     
     var body: some View{
         
@@ -31,17 +32,22 @@ struct HomeView: View{
                 //Username and Password Fields
                 HStack{
                     Image(systemName: "person.fill")
-                    TextField("Username", text: $viewModel.inpUsername).border(Color.blue).padding(5).fontDesign(.monospaced)
+                    TextField("Username", text: $viewModel.inpEmail).border(Color.blue).padding(5).fontDesign(.monospaced)
                 }.textFieldStyle(RoundedBorderTextFieldStyle()).padding(.horizontal)
                 
                 HStack{
                     Image(systemName: "lock.fill")
-                    TextField("Password", text: $viewModel.inpPassword).border(Color.blue).padding(5).fontDesign(.monospaced)
+                    SecureField("Password", text: $viewModel.inpPassword).border(Color.blue).padding(5).fontDesign(.monospaced)
                 }.textFieldStyle(RoundedBorderTextFieldStyle()).padding(.horizontal)
                 
+                
                 Button {
-                    print(viewModel.inpUsername)
+                    print(viewModel.inpEmail)
                     print(viewModel.inpPassword)
+                    
+                    //viewModel.createUser()
+                    
+                    
                 } label: {
                     
                     Image(systemName: "hand.tap").foregroundStyle(.white)
@@ -53,26 +59,26 @@ struct HomeView: View{
                 .padding(10)
                 
                 
-                Button {
-                    //THIS NEEDS TO GO TO ACCOUNT CREATION
-                    print("Sending you to Account Creation Page")
-                    viewModel.sheetVis.toggle()
-                    
-                } label: {
-                    Image(systemName: "pencil")
-                    Text("Create Account").fontDesign(.monospaced)
-                }
-                /// Present a sheet once `shouldPresentSheet` becomes `true`.
-                .sheet(isPresented: $viewModel.sheetVis) {
-                    print("Sheet dismissed!")
-                } content: {
-                    CreateAccountView(viewModel: viewModel)
-                }
+//                Button {
+//                    //THIS NEEDS TO GO TO ACCOUNT CREATION
+//                    print("Sending you to Account Creation Page")
+//                    viewModel.sheetVis.toggle()
+//                    
+//                } label: {
+//                    Image(systemName: "pencil")
+//                    Text("Create Account").fontDesign(.monospaced)
+//                }
+//                
+//                .sheet(isPresented: $viewModel.sheetVis) {
+//                    print("Sheet dismissed!")
+//                } content: {
+//                    CreateAccountView(viewModel: viewModel)
+//                }
 
             }
             .padding(10)
             .background(.white)
-            .border(.white, width: 5)
+            //.border(.white, width: 5)
             .cornerRadius(20)
             
 
@@ -104,16 +110,16 @@ struct CreateAccountView: View {
             
             HStack{
                 Image(systemName: "person.fill")
-                TextField("Username", text: $viewModel.createUser).border(Color.blue).padding(5).fontDesign(.monospaced)
+                TextField("Username", text: $viewModel.createEmail).border(Color.blue).padding(5).fontDesign(.monospaced)
             }.textFieldStyle(RoundedBorderTextFieldStyle()).padding(.horizontal)
             
             HStack{
                 Image(systemName: "lock.fill")
-                TextField("Password", text: $viewModel.createPass).border(Color.blue).padding(5).fontDesign(.monospaced)
+                SecureField("Password", text: $viewModel.createPass).border(Color.blue).padding(5).fontDesign(.monospaced)
             }.textFieldStyle(RoundedBorderTextFieldStyle()).padding(.horizontal)
             
             Button {
-                print(viewModel.createUser)
+                print(viewModel.createEmail)
                 print(viewModel.createPass)
             } label: {
                 

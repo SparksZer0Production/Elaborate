@@ -11,14 +11,27 @@ import Combine
 class HomeViewModel: ObservableObject {
     @Published var homeModel = HomeModel()
     @Published var counter: Int = 0
-    @Published var inpUsername: String = ""
+    @Published var inpEmail: String = ""
     @Published var inpPassword: String = ""
     @Published var sheetVis: Bool = false
-    @Published var createUser: String = ""
+    
+    @Published var createEmail: String = ""
     @Published var createPass: String = ""
     
-    func buttonPressed() {
-        counter += 1
-        print(counter)
+    func signIn(){
+        
+    }
+    
+    func createUser(){
+        Task{
+            do{
+                let user = try await AuthenticationManager.shared.createUser(email: createEmail, password: createPass)
+                //isSignedUp = true
+            }
+            catch{
+                print("Sign Up Failed :(")
+                //isSignedUp = false
+            }
+        }
     }
 }
