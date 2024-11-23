@@ -17,27 +17,22 @@ struct HomeView: View{
     var body: some View{
         
         ZStack{
-            
-            VStack {
-                AngularGradient(colors: [.red, .teal, .blue, .indigo, .purple, .red], center: .center)
-            }
-            .edgesIgnoringSafeArea(.all)
+                AngularGradient(colors: [.red, .teal, .blue, .indigo, .purple, .red], center: .center).edgesIgnoringSafeArea(.all)
         
             VStack {
 
-                
                 Text("Elaborate").font(.system(size: 75)).padding(.bottom).fontDesign(.serif)
                 Text("Log In").font(.largeTitle).foregroundStyle(Color.black).fontDesign(.monospaced)
                 
                 //Username and Password Fields
                 HStack{
                     Image(systemName: "person.fill")
-                    TextField("Username", text: $viewModel.inpEmail).border(Color.blue).padding(5).fontDesign(.monospaced)
+                    TextField("Email...", text: $viewModel.inpEmail).border(Color.blue).padding(5).fontDesign(.monospaced)
                 }.textFieldStyle(RoundedBorderTextFieldStyle()).padding(.horizontal)
                 
                 HStack{
                     Image(systemName: "lock.fill")
-                    SecureField("Password", text: $viewModel.inpPassword).border(Color.blue).padding(5).fontDesign(.monospaced)
+                    SecureField("Password...", text: $viewModel.inpPassword).border(Color.blue).padding(5).fontDesign(.monospaced)
                 }.textFieldStyle(RoundedBorderTextFieldStyle()).padding(.horizontal)
                 
                 
@@ -57,23 +52,24 @@ struct HomeView: View{
                 .tint(.blue)
                 .buttonBorderShape(.roundedRectangle)
                 .padding(10)
+
                 
                 
-//                Button {
-//                    //THIS NEEDS TO GO TO ACCOUNT CREATION
-//                    print("Sending you to Account Creation Page")
-//                    viewModel.sheetVis.toggle()
-//                    
-//                } label: {
-//                    Image(systemName: "pencil")
-//                    Text("Create Account").fontDesign(.monospaced)
-//                }
-//                
-//                .sheet(isPresented: $viewModel.sheetVis) {
-//                    print("Sheet dismissed!")
-//                } content: {
-//                    CreateAccountView(viewModel: viewModel)
-//                }
+                Button {
+                    //THIS NEEDS TO GO TO ACCOUNT CREATION
+                    print("Sending you to Account Creation Page")
+                    viewModel.sheetVis.toggle()
+                    
+                } label: {
+                    Image(systemName: "pencil")
+                    Text("Create Account").fontDesign(.monospaced)
+                }
+                
+                .sheet(isPresented: $viewModel.sheetVis) {
+                    print("Sheet dismissed!")
+                } content: {
+                    CreateAccountView(viewModel: viewModel)
+                }
 
             }
             .padding(10)
@@ -121,6 +117,15 @@ struct CreateAccountView: View {
             Button {
                 print(viewModel.createEmail)
                 print(viewModel.createPass)
+                
+                if(viewModel.createPass.count < 8 || viewModel.createPass.contains(" ")){
+                    viewModel.showPassText = true
+                    print("not long enough or spaces")
+                }else{
+                    viewModel.createUser()
+                }
+                
+                
             } label: {
                 
                 Image(systemName: "hand.tap").foregroundStyle(.white)
@@ -130,6 +135,9 @@ struct CreateAccountView: View {
             .tint(.blue)
             .buttonBorderShape(.roundedRectangle)
             .padding(10)
+            if(viewModel.showPassText){
+                Text(viewModel.passText).foregroundStyle(Color.red).fontDesign(.monospaced).font(.system(size: 25)).padding().multilineTextAlignment(.center)
+            }
             Spacer()
         }
     }

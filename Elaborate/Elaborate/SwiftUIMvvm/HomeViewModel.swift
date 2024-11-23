@@ -14,6 +14,8 @@ class HomeViewModel: ObservableObject {
     @Published var inpEmail: String = ""
     @Published var inpPassword: String = ""
     @Published var sheetVis: Bool = false
+    @Published var passText = "Password must be longer than 8 characters and not contain any spaces"
+    @Published var showPassText = false
     
     @Published var createEmail: String = ""
     @Published var createPass: String = ""
@@ -23,6 +25,8 @@ class HomeViewModel: ObservableObject {
     }
     
     func createUser(){
+        
+        print(createPass)
         Task{
             do{
                 let user = try await AuthenticationManager.shared.createUser(email: createEmail, password: createPass)
