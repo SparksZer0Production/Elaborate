@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Photos
 
 struct NewPhotoView: View {
     var body: some View {
@@ -27,12 +28,10 @@ struct NewPhotoView: View {
                 ZStack{
                     Color.white.clipShape(RoundedRectangle(cornerRadius: 20)).padding(.bottom)
                     VStack{
-                        Image(systemName: "photo.circle.fill").foregroundStyle(.black).font(.system(size: 60)).padding()
-                        Text("Generate a Photo").fontDesign(.monospaced)
+                        Image(systemName: "photo.circle.fill").foregroundStyle(.black).font(.system(size: 80)).padding()
+                        Text("Generate a Photo").fontDesign(.monospaced).font(.system(size: 25))
                     }
                 }
-                
-                
                 
                 Button {
                     
