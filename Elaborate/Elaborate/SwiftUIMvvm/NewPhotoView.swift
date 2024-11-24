@@ -1,67 +1,73 @@
-//
-//  NewPhotoView.swift
-//  Elaborate
-//
-//  Created by Samuel Faucher on 11/22/24.
-//
-
 import SwiftUI
 import Photos
 
 struct NewPhotoView: View {
+    @State private var selectedImage: UIImage?
+    @State private var isLoading: Bool = false
+
     var body: some View {
-        ZStack{
-            AngularGradient(colors: [.red, .teal, .blue, .indigo, .purple, .red], center: .center).edgesIgnoringSafeArea(.all)
-            
-            VStack{
-                
-                HStack{
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "chevron.backward.circle").foregroundStyle(.white)
-                        Text("Back").foregroundStyle(.white)
-                    }.font(.system(size: 30))
-                    Spacer()
+        VStack {
+            Text("Random Photo from Library")
+                .font(.title)
+                .padding()
+
+            if isLoading {
+                ProgressView("Loading...")
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .padding()
+            } else {
+                Button("Pick a Random Photo") {
+                    fetchRandomPhoto()
                 }
-                ZStack{
-                    Color.white.clipShape(RoundedRectangle(cornerRadius: 20)).padding(.bottom)
-                    VStack{
-                        Image(systemName: "photo.circle.fill").foregroundStyle(.black).font(.system(size: 80)).padding()
-                        Text("Generate a Photo").fontDesign(.monospaced).font(.system(size: 25))
-                    }
-                }
-                
-                Button {
-                    
-                } label: {
-                    HStack {
-                        Image(systemName: "photo")
-                            .foregroundStyle(.white)
-                        Text("Generate")
-                            .foregroundStyle(.white)
-                            .fontDesign(.monospaced)
-                    }
-                    .padding(10)
-                }
-                .background(
-                    LinearGradient(
-                        gradient: Gradient(colors: [Color.orange, Color.red]),
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                )
+                .padding()
+                .background(Color.blue)
                 .foregroundColor(.white)
-                .shadow(radius: 10)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
 
+                if let selectedImage = selectedImage {
+                    Image(uiImage: selectedImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300, height: 300)
+                        .padding(.top, 20)
+                }
             }
-            .padding(20)
-            .padding(.bottom, 150)
-            Spacer()
         }
+        .padding()
+    }
 
+    func fetchRandomPhoto() {
+        PHPhotoLibrary.requestAuthorization { status in
+            if status == .authorized {
+                DispatchQueue.main.async {
+                    isLoading = true
+                }
+                
+                let fetchOptions = PHFetchOptions()
+                let allPhotos = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+
+                if allPhotos.count > 0 {
+                    let randomIndex = Int.random(in: 0..<allPhotos.count)
+                    let randomAsset = allPhotos.object(at: randomIndex)
+                    
+                    let imageManager = PHImageManager.default()
+                    let targetSize = CGSize(width: 300, height: 300)
+                    let options = PHImageRequestOptions()
+                    options.isSynchronous = true
+                    
+                    imageManager.requestImage(for: randomAsset, targetSize: targetSize, contentMode: .aspectFill, options: options) { image, _ in
+                        DispatchQueue.main.async {
+                            self.selectedImage = image
+                            self.isLoading = false
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.isLoading = false
+                    }
+                }
+            }
+        }
     }
 }
 

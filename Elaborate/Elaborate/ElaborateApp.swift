@@ -23,7 +23,8 @@ struct ElaborateApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            //HomeView()
+            NewPhotoView()
             //ContentView()
         }
     }
