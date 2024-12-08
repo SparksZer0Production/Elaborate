@@ -1,5 +1,8 @@
 import SwiftUI
 import Photos
+import FirebaseStorage
+import FirebaseFirestore
+
 
 struct NewPhotoView: View {
     @State private var selectedImage: UIImage?
@@ -32,8 +35,57 @@ struct NewPhotoView: View {
                         .padding(.top, 20)
                 }
             }
+            //Upload Button
+            if selectedImage != nil {
+                Button {
+                    //Upload
+                    uploadPhoto()
+                    
+                } label: {
+                    Image(systemName: "paperplane.circle.fill").foregroundStyle(.white)
+                    Text("Upload").foregroundStyle(.white).fontDesign(.monospaced)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.blue)
+                .buttonBorderShape(.roundedRectangle)
+                .padding(10)
+
+            }
         }
         .padding()
+    }
+    func uploadPhoto(){
+        //ensure image is not nil
+
+        guard selectedImage != nil else {
+            return
+        }
+        
+        //create storage ref
+        let storageRef = Storage.storage().reference()
+
+        //turn image into data
+        let imageData = selectedImage!.jpegData(compressionQuality: 0.6)
+        
+        guard imageData != nil else {
+            return
+        }
+        
+        //specify path
+        let river = storageRef.child("images/\(UUID().uuidString).jpg")
+        
+        let uploadTask = river.putData(imageData!, metadata: nil){
+            metadata, error in
+            
+            //check for errors
+            if error == nil && metadata != nil {
+                //save ref
+            }
+        }
+        
+        //upload
+        
+        //save ref to file in firestore db
     }
 
     func fetchRandomPhoto() {
