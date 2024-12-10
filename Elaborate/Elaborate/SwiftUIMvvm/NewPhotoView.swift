@@ -95,28 +95,26 @@ struct NewPhotoView: View {
         }
 
         let imageName = UUID().uuidString
-        let storageRef = Storage.storage().reference().child("\(imageName)")
+        let storageRef = Storage.storage().reference().child("\(imageName).jpg")
 
         // Metadata
         let metadata = StorageMetadata()
-        metadata.contentType = "image/png"
+        metadata.contentType = "image/jpeg"
 
-        do {
-            let _ = try await storageRef.putDataAsync(imageData, metadata: metadata)
-            let downloadURL = try await storageRef.downloadURL()
-
-            // Save the download URL to Firestore
-            let db = Firestore.firestore()
-            let userUid = "yourUserID"  // Replace with actual user ID
-            try await db.collection("favourites").document(userUid).setData([
-                "photoUrl": downloadURL.absoluteString,
-                "userId": userUid
-            ], merge: true)
-
-            print("Image successfully uploaded and saved to Firestore.")
-        } catch {
-            print("Error uploading image: \(error)")
-        }
+        do{
+                    let result = try await storageRef.putDataAsync(imageData, metadata: metadata){ progress in
+                        if let progress {
+                            print(progress.fractionCompleted)
+                            if progress.isFinished{
+                                print("Completed")
+                            }
+                        }
+                    }
+                    print(result)
+                }
+                catch{
+                    print("Error: \(error)")
+                }
     }
 }
 
